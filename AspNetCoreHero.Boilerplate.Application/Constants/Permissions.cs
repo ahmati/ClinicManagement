@@ -46,5 +46,12 @@ namespace AspNetCoreHero.Boilerplate.Application.Constants
             public const string Edit = "Permissions.Brands.Edit";
             public const string Delete = "Permissions.Brands.Delete";
         }
+        public static class Patients
+        {
+            public const string View = "Permissions.Patients.View";
+            public const string Create = "Permissions.Patients.Create";
+            public const string Edit = "Permissions.Patients.Edit";
+            public const string Delete = "Permissions.Patients.Delete";
+        }
     }
 }

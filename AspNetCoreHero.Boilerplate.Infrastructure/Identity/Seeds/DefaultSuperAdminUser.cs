@@ -38,8 +38,8 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Identity.Seeds
             {
                 UserName = "superadmin",
                 Email = "superadmin@gmail.com",
-                FirstName = "Mukesh",
-                LastName = "Murugan",
+                FirstName = "Skarra",
+                LastName = "Dent",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 IsActive = true
