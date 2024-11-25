@@ -25,9 +25,9 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav" style=" margin-inline-start: auto; ">
-        <li class="nav-item dropdown no-arrow">
+        @* <li class="nav-item dropdown no-arrow">
             @(await Component.InvokeAsync<CultureViewComponent>())
-        </li>
+        </li> *@
         @if (User.Identity.IsAuthenticated)
         {
             <!-- Nav Item - User Information -->
@@ -40,7 +40,7 @@
                     }
                     else
                     {
-                        <img class="img-profile rounded-circle" style="object-fit: cover; width: 30px; height: 30px;" src="~/images/default-user.png">
+                        <img class="img-profile rounded-circle" style="object-fit: cover; width: 30px; height: 30px;" src="~/images/dental-logo.png">
                     }
                 </a>
                 <!-- Dropdown - User Information -->

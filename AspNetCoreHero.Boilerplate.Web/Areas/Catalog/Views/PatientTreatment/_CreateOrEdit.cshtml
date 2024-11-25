@@ -1,0 +1,62 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Web.Areas.Catalog.Models
+@model PatientTreatmentViewModel
+<form id="create-form" method="post" asp-controller="PatientTreatment" asp-action="OnPostCreateOrEdit" asp-route-patientId="@Model.PatientId" asp-route-id="@Model.Id" onsubmit="return jQueryModalPost(this);" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Dhembi</label>
+                <div class="col-md-9">
+                    <input type="text" asp-for="Tooth" name="Tooth" class="form-control">
+                    <span asp-validation-for="Tooth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Diagnoza</label>
+                <div class="col-md-9">
+                    <input type="text"  asp-for="Diagnosis" name="Diagnosis" class="form-control">
+                    <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Trajtimi</label>
+                <div class="col-md-9">
+                    <input type="text" as asp-for="Treatment" name="Treatment" class="form-control">
+                    <span asp-validation-for="Treatment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Data e trajtimit</label>
+                <div class="col-md-9">
+                    <input type="datetime-local" as asp-for="DateOfIntervention" name="DateOfIntervention" class="form-control" value="@DateTime.Now.ToString("dd-mm-yyyyTHH:mm")" />
+                    <span asp-validation-for="DateOfIntervention" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Pagesa</label>
+                <div class="col-md-9">
+                    <input type="text" as asp-for="Payment" name="Payment" class="form-control">
+                    <span asp-validation-for="Payment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-end" style="margin-bottom: 0px !important">
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-default close-button" data-dismiss="modal">Cancel</button>
+    </div>
+</form>
+<script type="text/javascript" language=javascript>
+    
+</script>
+
+<style>
+    .modal, #form-modal {
+        background-color: none;
+    }
+</style>

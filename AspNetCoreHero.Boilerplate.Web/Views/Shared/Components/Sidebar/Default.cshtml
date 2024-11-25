@@ -2,9 +2,9 @@
 @inject IHtmlLocalizer<SharedResource> localizer
 <aside id="sideBar" class="main-sidebar sidebar-dark-primary">
     <a href="/" class="brand-link">
-        <img src="~/images/logo-transparent.png" id="brand-logo" alt="logo" class="brand-image img-circle"
+        <img src="~/images/dental-logo.png"  alt="logo" class="brand-image img-circle"
              style="opacity: .8">
-        <span class="brand-text font-weight-light" style="font-size:0.8em!important">ASP.NET Core Hero</span>
+        <span class="brand-text font-weight-light" style="font-size:0.8em!important">SKARRA Dental</span>
     </a>
     <div class="sidebar">
         <nav class="mt-2">
@@ -19,6 +19,7 @@
                     </a>
                 </li>
                 @if (User.IsInRole("SuperAdmin"))
+
                 {
                     <li class="nav-header">@localizer["Admin"]</li>
                     <li is-active-route asp-area="Admin" class="nav-item has-treeview">
@@ -45,6 +46,7 @@
                         </ul>
                     </li>
                 }
+
                 <li class="nav-header">@localizer["Master"]</li>
                 <li is-active-route asp-area="Utilities" class="nav-item has-treeview">
                     <a is-active-route asp-area="Utilities" class="nav-link">
@@ -63,7 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                <li is-active-route asp-area="Catalog" class="nav-item has-treeview">
+                @* <li is-active-route asp-area="Catalog" class="nav-item has-treeview">
                     <a is-active-route asp-area="Catalog" class="nav-link">
                         <i class="nav-icon fas fa-archive"></i>
                         <p>
@@ -82,6 +84,23 @@
                             <a is-active-route asp-area="Catalog" asp-controller="Brand" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>@localizer["Brand"]</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li> *@
+                <li is-active-route asp-area="Catalog" class="nav-item has-treeview">
+                    <a is-active-route asp-area="Catalog" class="nav-link">
+                        <i class="nav-icon fas fa-archive"></i>
+                        <p>
+                            Patient
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a is-active-route asp-area="Catalog" asp-controller="Patient" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Patient</p>
                             </a>
                         </li>
                     </ul>
