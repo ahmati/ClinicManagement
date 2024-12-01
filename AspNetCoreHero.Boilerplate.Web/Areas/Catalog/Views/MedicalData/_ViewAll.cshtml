@@ -1,0 +1,214 @@
+﻿@using Web.Areas.Catalog.Models
+@model MedicalDataViewModel
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Të dhënat Mjekësore</h2>
+
+    <!-- Toggle Button -->
+    <div class="d-flex justify-content-end mb-3">
+        @* <button id="toggleButton" class="btn btn-secondary" type="button" onclick="toggleMode()">Edit Mode</button> *@
+    </div>
+
+    <form asp-area="Catalog" asp-controller="MedicalData" asp-action="OnPostCreateOrEdit" asp-route-id="1" onsubmit="return jQueryModalPost(this);" method="post">
+        <!-- Section for "Vuani nga ndonjë sëmundje?" -->
+        <div class="mb-3">
+            <label class="form-label">Vuani nga ndonjë sëmundje?</label>
+            <!-- Viewing -->
+            <p id="view-semunja" class="view-mode">@Model.HasIllness</p>
+            <!-- Editing -->
+            <div id="edit-semunja">
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.HasIllness, true, new { id = "po", @class = "form-check-input" })
+                    <label class="form-check-label" for="po">PO</label>
+                </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.HasIllness, false, new { id = "jo", @class = "form-check-input" })
+                    <label class="form-check-label" for="jo">JO</label>
+                </div>
+                <input type="text" class="form-control mt-2" id="semunjaDetails" name="IllnessDetails" placeholder="Nëse po, cilat?" value="@Model.IllnessDetails">
+
+                </div>
+        </div>
+
+        <!-- Section for "A jeni në kujdesin e mjekut?" -->
+        <div class="mb-3">
+            <label class="form-label">A jeni në kujdesin e mjekut?</label>
+            <!-- Viewing -->
+            <p id="view-kujdesi" class="view-mode">@Model.IsUnderTreatment</p>
+            <!-- Editing -->
+            <div id="edit-kujdesi">
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsUnderTreatment, true, new { id = "isUnderTreatment", @class = "form-check-input" })
+                    <label class="form-check-label" for="isUnderTreatment">PO</label>
+                </div>
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsUnderTreatment, false, new { id = "isNotUnderTreatment", @class = "form-check-input" })
+                    <label class="form-check-label" for="isNotUnderTreatment">JO</label>
+                </div>
+                <input type="text" class="form-control mt-2" name="DoctorsName" placeholder="Emri i mjekut tuaj" value="@Model.DoctorsName">
+            </div>
+        </div>
+
+        <!-- Section for Medication -->
+        <div class="mb-3">
+            <label class="form-label">Shkruani mjekimin (Medikamentin) që merrni:</label>
+            <!-- Viewing -->
+            <p id="view-medication" class="view-mode">@Model.MedicationsTreatment</p>
+            <!-- Editing -->
+            <textarea class="form-control" name="MedicationsTreatment" rows="2" placeholder="Shkruani mjekimin">@Model.MedicationsTreatment</textarea>
+        </div>
+
+        <!-- List of health issues -->
+        <div class="mb-3">
+            <label class="form-label">Cilat nga problemet e mëposhtme keni? (KUJDES! Rishikoni sëmundjen tuaj)</label>
+            </ul>
+            <!-- Editing -->
+            <div id="edit-healthIssues">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.SemundjeGjaku, new { @checked = Model.SemundjeGjaku })
+                            <label class="form-check-label" for="SemundjeGjaku">Sëmundje gjaku</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.TensionILarte, new { @checked = Model.TensionILarte })
+                            <label class="form-check-label" for="TensionILarte">Tension i lartë</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.TensionIUlet, new { @checked = Model.TensionIUlet })
+                            <label class="form-check-label" for="TensionIUlet">Tension i ulet</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.NderhyrjeKirugjikaleNeZemer, new { @checked = Model.NderhyrjeKirugjikaleNeZemer })
+                            <label class="form-check-label" for="NderhyrjeKirugjikaleNeZemer">Nderhyrje kirugjikale ne zemer</label>
+                        </div>
+
+                        <div class="form-check">
+                             @Html.CheckBoxFor(m => m.PropblemeZemre, new { @checked = Model.PropblemeZemre })
+                            <label class="form-check-label" for="PropblemeZemre">Probleme zemre</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.EtheRaumatizmale, new { @checked = Model.EtheRaumatizmale })
+                            <label class="form-check-label" for="EtheRaumatizmale">Probleme zemre</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.Glaucoma, new { @checked = Model.Glaucoma })
+                            <label class="form-check-label" for="Glaucoma">Glaucoma</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.Diabet, new { @checked = Model.Diabet })
+                            <label class="form-check-label" for="Diabet">Diabet</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.AlergjiNgaLlastikuDorezave, new { @checked = Model.AlergjiNgaLlastikuDorezave })
+                            <label class="form-check-label" for="AlergjiNgaLlastikuDorezave">Alergji nga llastiku dorezave</label>
+                        </div>
+                        
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.AlergjiNgaMedikamentet, new { @checked = Model.AlergjiNgaMedikamentet })
+                            <label class="form-check-label" for="AlergjiNgaMedikamentet">Alergji nga medikamentet</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.AlergjiNgaMetalet, new { @checked = Model.AlergjiNgaMetalet })
+                            <label class="form-check-label" for="AlergjiNgaMetalet">Alergji nga metalet</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.SemundjeMendore, new { @checked = Model.SemundjeMendore })
+                            <label class="form-check-label" for="SemundjeMendore">Semundje mendore</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.Epilepsi, new { @checked = Model.Epilepsi })
+                            <label class="form-check-label" for="Epilepsi">Epilepsi</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.PerdoruesDroge, new { @checked = Model.PerdoruesDroge })
+                            <label class="form-check-label" for="PerdoruesDroge">Perdorues droge</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.AzemBronkiale, new { @checked = Model.AzemBronkiale })
+                            <label class="form-check-label" for="AzemBronkiale">Azem bronkiale</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.Turbekuloze, new { @checked = Model.Turbekuloze })
+                            <label class="form-check-label" for="Turbekuloze">Turbekuloze</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.MjekimTumori, new { @checked = Model.MjekimTumori })
+                            <label class="form-check-label" for="MjekimTumori">MjekimTumori ose radioterapi</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.Shtatzen, new { @checked = Model.Shtatzen })
+                            <label class="form-check-label" for="Shtatzen">Shtatzen</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.AIDS, new { @checked = Model.AIDS })
+                            <label class="form-check-label" for="AIDS">AIDS</label>
+                        </div>
+
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.SemundjeMelcie, new { @checked = Model.SemundjeMelcie })
+                            <label class="form-check-label" for="SemundjeMelcie">Semundje melcie (Hepatit)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reason for visiting -->
+        <div class="mb-3">
+            <label class="form-label">Cila është arsyeja që jeni paraqitur në klinikë?</label>
+            <!-- Viewing -->
+            <p id="view-reason" class="view-mode">@Model.ArsyejaEParaqitjesNeKlinike</p>
+            <!-- Editing -->
+            <textarea class="form-control" name="ArsyejaEParaqitjesNeKlinike" rows="2" placeholder="Shkruani arsyen">@Model.ArsyejaEParaqitjesNeKlinike</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+    let isEditMode = true;
+
+    function toggleMode() {
+        const viewElements = document.querySelectorAll('.view-mode');
+        const editElements = document.querySelectorAll('#edit-semunja, #edit-kujdesi, #edit-healthIssues');
+            
+        if (isEditMode) {
+            // Switch to view mode
+            document.getElementById('toggleButton').innerText = 'Edit Mode';
+            viewElements.forEach(el => el.style.display = 'block');
+            editElements.forEach(el => el.style.display = 'none');
+        } else {
+            // Switch to edit mode
+            document.getElementById('toggleButton').innerText = 'View Mode';
+            viewElements.forEach(el => el.style.display = 'none');
+            editElements.forEach(el => el.style.display = 'block');
+        }
+
+        isEditMode = !isEditMode;
+    }
+</script>
+
+<style>
+    .view-mode {
+        display: none;
+    }
+</style>

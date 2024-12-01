@@ -103,14 +103,26 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BornDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("JobAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -118,10 +130,19 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MedicalDataId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("ParentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profession")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ProfilePicture")
@@ -131,6 +152,8 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MedicalDataId");
 
                     b.ToTable("Patient");
                 });
@@ -218,6 +241,108 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.ToTable("AuditLogs");
                 });
 
+            modelBuilder.Entity("Domain.Entities.MedicalData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<bool?>("AIDS")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("AlergjiNgaLlastikuDorezave")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("AlergjiNgaMedikamentet")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("AlergjiNgaMetalet")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ArsyejaEParaqitjesNeKlinike")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("AzemBronkiale")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorsName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Epilepsi")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("EtheRaumatizmale")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Glaucoma")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("HasIllness")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IllnessDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsUnderTreatment")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MedicationsTreatment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("MjekimTumori")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("NderhyrjeKirugjikaleNeZemer")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PerdoruesDroge")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("PropblemeZemre")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("SemundjeGjaku")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("SemundjeMelcie")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("SemundjeMendore")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Shtatzen")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("TensionILarte")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("TensionIUlet")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Turbekuloze")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicalData");
+                });
+
             modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.Catalog.Product", b =>
                 {
                     b.HasOne("AspNetCoreHero.Boilerplate.Domain.Entities.Catalog.Brand", "Brand")
@@ -227,6 +352,15 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.Patient", b =>
+                {
+                    b.HasOne("Domain.Entities.MedicalData", "MedicalData")
+                        .WithMany()
+                        .HasForeignKey("MedicalDataId");
+
+                    b.Navigation("MedicalData");
                 });
 
             modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.PatientTreatment", b =>

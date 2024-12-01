@@ -1,0 +1,32 @@
+﻿@using Web.Areas.Catalog.Models
+@{
+    // ViewData["Title"] = localizer[$"Te dhenat mjeksore te: {Model.Patient.Name}{ Model.Patient.Surname}"];
+}
+@model MedicalDataViewModel
+<div class="card">
+    <div class="col-sm-12" style="padding:20px">
+        <a asp-area="Catalog" asp-controller="Patient" id="go-back" class="btn btn-dark text-white">
+            <i class="fa fa-arrow-left"></i>
+            Kthehu pas
+        </a>
+            @* <a onclick="jQueryModalGet('/catalog/medicalData/OnGetCreateOrEdit?id=@Model.PatientId','Ndrysho te dhenat mjekesore te pacientit')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>Edito te dhenat</a> *@
+    </div>
+    <div id="viewAll" class="card-body table-responsive">
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadData();
+            $('#reload').on('click', function () {
+                loadData();
+            });
+        });
+        function loadData() {
+            var id = '@Model.Id';
+            $('#viewAll').load('/catalog/medicalData/LoadAll?Id=' + id);
+        }
+    </script>
+}

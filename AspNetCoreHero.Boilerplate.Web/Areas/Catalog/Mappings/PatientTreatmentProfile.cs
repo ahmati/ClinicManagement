@@ -12,6 +12,7 @@ namespace Web.Areas.Catalog.Mappings
         {
             CreateMap<CreatePatientTreatmentCommand, PatientTreatmentViewModel>().ReverseMap();
             CreateMap<UpdatePatientTreatmentCommand, PatientTreatmentViewModel>().ReverseMap();
+            CreateMap<UpdatePatientTreatmentCommand, PatientTreatment>().ReverseMap();
             CreateMap<PatientTreatment, PatientTreatmentViewModel>().ReverseMap();
         }
     }

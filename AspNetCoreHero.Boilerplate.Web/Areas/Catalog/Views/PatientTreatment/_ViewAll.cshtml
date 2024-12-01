@@ -11,7 +11,7 @@
             @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Delete)).Result.Succeeded
                || (AuthorizationService.AuthorizeAsync(User, Permissions.Products.Edit)).Result.Succeeded)
             {
-                <th>Actions</th>
+                <th></th>
             }
         </tr>
     </thead>
@@ -37,10 +37,10 @@
             @*     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Delete)).Result.Succeeded
                || (AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Edit)).Result.Succeeded)
             { *@
-                <td class="text-right">
+                <td class="text">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
+                            Veprime
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
                             @* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Edit)).Result.Succeeded)

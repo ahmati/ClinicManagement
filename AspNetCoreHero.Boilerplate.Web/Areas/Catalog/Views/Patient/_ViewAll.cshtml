@@ -6,11 +6,12 @@
             <th>Emri</th>
             <th>Mbiemri</th>
             <th>Nr tel</th>
+            <th>Te dhenat mjekesore</th>
             <th>Trajtimet</th>
             @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Delete)).Result.Succeeded
                || (AuthorizationService.AuthorizeAsync(User, Permissions.Products.Edit)).Result.Succeeded)
             {
-                <th>Actions</th>
+                <th></th>
             }
         </tr>
     </thead>
@@ -26,7 +27,13 @@
                     @patient.Surname
             </td>
             <td>
-                    @patient.PhoneNumber
+                    @patient.PhoneNo
+            </td>
+            <td>
+                    <a asp-area="Catalog" asp-controller="MedicalData"  asp-action="Index" asp-route-id="@patient.MedicalDataId" class="btn btn-default">
+                        @* <a href="/Catalog/PatientTreatment/Index/@patient.Id" class="btn btn-default"> *@
+                        Shiko
+                    </a>
             </td>
             <td>
                     <a asp-area="Catalog" asp-controller="PatientTreatment"  asp-action="Index" asp-route-id="@patient.Id" class="btn btn-default">
@@ -37,10 +44,10 @@
             @*     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Delete)).Result.Succeeded
                || (AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Edit)).Result.Succeeded)
             { *@
-                <td class="text-right">
+                <td class="text">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
+                            Veprime
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
                             @* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Edit)).Result.Succeeded)

@@ -85,6 +85,8 @@ namespace Web.Areas.Catalog.Controllers
                 else
                 {
                     var updatePatientTreatment = _mapper.Map<UpdatePatientTreatmentCommand>(patientTreatment); 
+                    updatePatientTreatment.Id = id;
+
                     var result = await _mediator.Send(updatePatientTreatment); 
                     if (result.Succeeded) _notify.Information($"Pacienti me ID {result.Data} u perditesua me sukses.");
                 }

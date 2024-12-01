@@ -20,7 +20,14 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string PhoneNumber { get; set; }
+        public DateTime BornDate { get; set; }
+        public string Gender { get; set; }
+        public string ParentName { get; set; }
+        public string Address { get; set; }
+        public string PhoneNo { get; set; }
+        public string Profession { get; set; }
+        public string JobAddress { get; set; }
+
         public byte[] ProfilePicture { get; set; }
     }
 
@@ -49,8 +56,13 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
 
             //patient = _mapper.Map<Patient>(request);
             patient.Name = request.Name;
-            patient.PhoneNumber = request.PhoneNumber;
             patient.Surname = request.Surname;
+            patient.PhoneNo = request.PhoneNo;
+            patient.BornDate = request.BornDate;
+            patient.Gender = request.Gender;
+            patient.Address = request.Address;
+            patient.Profession = request.Profession;
+            patient.JobAddress = request.JobAddress;
             patient.ProfilePicture = request.ProfilePicture;
 
             await _context.UpdateAsync(patient);

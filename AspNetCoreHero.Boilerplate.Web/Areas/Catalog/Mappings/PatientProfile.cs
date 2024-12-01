@@ -2,6 +2,8 @@
 using AspNetCoreHero.Boilerplate.Domain.Entities;
 using AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Models;
 using AutoMapper;
+using Domain.Entities;
+using Web.Areas.Catalog.Models;
 
 namespace Web.Areas.Catalog.Mappings
 {
@@ -13,6 +15,10 @@ namespace Web.Areas.Catalog.Mappings
             CreateMap<UpdatePatientCommand, PatientViewModel>().ReverseMap();
             CreateMap<PatientDto, PatientViewModel>().ReverseMap();
             CreateMap<Patient, PatientViewModel>().ReverseMap();
+
+            CreateMap<MedicalData, MedicalDataViewModel>().ReverseMap();
+            CreateMap<UpdateMedicalDataCommand, MedicalDataViewModel>().ReverseMap();
+            CreateMap<UpdateMedicalDataCommand, MedicalData>().ReverseMap();
         }
     }
 }

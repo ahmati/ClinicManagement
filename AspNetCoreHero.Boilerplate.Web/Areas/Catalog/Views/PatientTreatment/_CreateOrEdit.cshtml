@@ -7,7 +7,7 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label">Dhembi</label>
                 <div class="col-md-9">
-                    <input type="text" asp-for="Tooth" name="Tooth" class="form-control">
+                    <input type="number" asp-for="Tooth" name="Tooth" class="form-control">
                     <span asp-validation-for="Tooth" class="text-danger"></span>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label">Data e trajtimit</label>
                 <div class="col-md-9">
-                    <input type="datetime-local" as asp-for="DateOfIntervention" name="DateOfIntervention" class="form-control" value="@DateTime.Now.ToString("dd-mm-yyyyTHH:mm")" />
+                    <input type="datetime-local" as asp-for="DateOfIntervention" name="DateOfIntervention" class="form-control" />
                     <span asp-validation-for="DateOfIntervention" class="text-danger"></span>
                 </div>
             </div>
@@ -47,8 +47,8 @@
     </div>
 
     <div class="form-group d-flex justify-content-end" style="margin-bottom: 0px !important">
-        <button type="submit" class="btn btn-success">Save</button>
-        <button type="submit" class="btn btn-default close-button" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success m-2">Save</button>
+        <button type="submit" class="btn btn-default close-button m-2" data-dismiss="modal">Cancel</button>
     </div>
 </form>
 <script type="text/javascript" language=javascript>
