@@ -1,22 +1,14 @@
-﻿using AspNetCoreHero.Boilerplate.Application.Constants;
+﻿using Application.Interfaces.Shared;
+using AspNetCoreHero.Boilerplate.Application.Constants;
 using AspNetCoreHero.Boilerplate.Application.Features;
-using AspNetCoreHero.Boilerplate.Application.Features.Brands.Queries.GetAllCached;
-using AspNetCoreHero.Boilerplate.Application.Features.Brands.Queries.GetById;
 using AspNetCoreHero.Boilerplate.Application.Features.Patients.Commands.Delete;
 using AspNetCoreHero.Boilerplate.Application.Features.Patients.Commands.Update;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Commands.Create;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Commands.Delete;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Commands.Update;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Queries.GetAllCached;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Queries.GetAllPaged;
-using AspNetCoreHero.Boilerplate.Application.Features.Products.Queries.GetById;
 using AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Models;
 using AspNetCoreHero.Boilerplate.Web.Controllers;
 using AspNetCoreHero.Boilerplate.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +18,11 @@ namespace AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Controllers
     [Area("Catalog")]
     public class PatientController : BaseController<PatientController>
     {
+        private readonly IExportPdfService exportPdfService;
+        public PatientController(IExportPdfService exportPdfService)
+        {
+            this.exportPdfService = exportPdfService;
+        }
         public IActionResult Index()
         {
             var model = new PatientViewModel();
@@ -108,6 +105,14 @@ namespace AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Controllers
                 var html = await _viewRenderer.RenderViewToStringAsync("_CreateOrEdit", patient);
                 return new JsonResult(new { isValid = false, html = html });
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GeneratePatientData(int id)
+        {
+            var result = await exportPdfService.GeneratePdf(id);
+
+            return File(result.File, "application/pdf", result.Name);
         }
 
         [HttpPost]

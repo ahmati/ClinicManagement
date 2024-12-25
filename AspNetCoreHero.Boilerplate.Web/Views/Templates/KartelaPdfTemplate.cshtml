@@ -1,0 +1,299 @@
+﻿@using AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Models
+@model PatientViewModel
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+        margin: 20px;
+    }
+    .header, .section {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .section-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    td {
+        padding: 5px;
+    }
+    .field {
+        border-bottom: 1px solid black;
+        width: 100%;
+        display: inline-block;
+    }
+    .label {
+        font-weight: bold;
+    }
+
+</style>
+
+<div class="header">
+    <h2>KARTELA DENTARE</h2>
+    <table>
+        <tr>
+            <td><span class="label">Nr.:</span> <span class="field"></span></td>
+            @* <td style="text-align: right;"><span class="label">Data:</span> <span class="field">@DateTime.Now.ToString("d") </span></td> *@
+        </tr>
+        <tr>
+            <td colspan="2"><span class="label">Nr. i Licenses:</span> 434</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="label">Klinika Dentare:</span> “SKARRA DENTAL” Dr. Bilbil Skarra</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="label">Adresa:</span> Rruga “Ali Demi”</td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="label">Cel:</span> 0685512899 / 0696800593</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h3 class="section-title">GJENERALITETET E PACIENTIT</h3>
+    <table>
+        <tr>
+            <td><span class="label">Emri i pacientit:</span>@Model.Name @Model.Surname <span class="field"></span></td>
+            <td><span class="label">Data e Lindjes:</span> <span class="field"></span></td>
+            <td><span class="label">Seksi:</span> M <input type="checkbox"> apo F <input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td colspan="3"><span class="label">Emri i Prindërit/Shoqeruesit për (Minorenet):</span> <span class="field"></span></td>
+        </tr>
+        <tr>
+            <td colspan="3"><span class="label">Adresa:</span> <span class="field"></span></td>
+        </tr>
+        <tr>
+            <td><span class="label">Tel:</span> <span class="field"></span></td>
+        </tr>
+        <tr>
+            <td><span class="label">Puna tanishme:</span> <span class="field"></span></td>
+            <td colspan="2"><span class="label">Adresa:</span> <span class="field"></span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Të dhënat Mjekësore</h2>
+
+    <!-- Toggle Button -->
+    <div class="d-flex justify-content-end mb-3">
+        @* <button id="toggleButton" class="btn btn-secondary" type="button" onclick="toggleMode()">Edit Mode</button> *@
+    </div>
+
+        <!-- Section for "Vuani nga ndonjë sëmundje?" -->
+        <div class="mb-3">
+            <label class="form-label">Vuani nga ndonjë sëmundje?</label>
+            <!-- Viewing -->
+            <p id="view-semunja" class="view-mode">@Model.MedicalData.HasIllness</p>
+            <!-- Editing -->
+            <div id="edit-semunja">
+                <div class="form-check">
+                @* @Html.RadioButtonFor(m => m.MedicalData.HasIllness, true, new { id = "po", @class = "form-check-input" }) *@
+                    <label class="form-check-label" for="po">PO</label>
+                </div>
+                <div class="form-check">
+                @* @Html.RadioButtonFor(m => m.MedicalData.HasIllness, false, new { id = "jo", @class = "form-check-input" }) *@
+                    <label class="form-check-label" for="jo">JO</label>
+                </div>
+            <input type="text" class="form-control mt-2" id="semunjaDetails" name="IllnessDetails" placeholder="Nëse po, cilat?" value="@Model.MedicalData.IllnessDetails">
+
+            </div>
+        </div>
+
+        <!-- Section for "A jeni në kujdesin e mjekut?" -->
+        <div class="mb-3">
+            <label class="form-label">A jeni në kujdesin e mjekut?</label>
+            <!-- Viewing -->
+        <p id="view-kujdesi" class="view-mode">@Model.MedicalData.IsUnderTreatment</p>
+            <!-- Editing -->
+            <div id="edit-kujdesi">
+                <div class="form-check">
+                <input type="radio"
+                       id="isUnderTreatment"
+                       name="MedicalData.IsUnderTreatment"
+                       value="true"
+                       class="form-check-input"
+                @(Model.MedicalData.IsUnderTreatment ? "checked" : "") />
+                @Html.RadioButtonFor(m => m.MedicalData.IsUnderTreatment, true, new { id = "isUnderTreatment", @class = "form-check-input" })
+                    <label class="form-check-label" for="isUnderTreatment">PO</label>
+                </div>
+                <div class="form-check">
+                @* @Html.RadioButtonFor(m => m.MedicalData.IsUnderTreatment, false, new { id = "isNotUnderTreatment", @class = "form-check-input" }) *@
+                    <label class="form-check-label" for="isNotUnderTreatment">JO</label>
+                </div>
+            <input type="text" class="form-control mt-2" name="DoctorsName" placeholder="Emri i mjekut tuaj" value="@Model.MedicalData.DoctorsName">
+            </div>
+        </div>
+
+        <!-- Section for Medication -->
+        <div class="mb-3">
+            <label class="form-label">Shkruani mjekimin (Medikamentin) që merrni:</label>
+            <!-- Viewing -->
+        <p id="view-medication" class="view-mode">@Model.MedicalData.MedicationsTreatment</p>
+            <!-- Editing -->
+        <textarea class="form-control" name="MedicationsTreatment" rows="2" placeholder="Shkruani mjekimin">@Model.MedicalData.MedicationsTreatment</textarea>
+        </div>
+
+        <!-- List of health issues -->
+        <div class="mb-3">
+            <label class="form-label">Cilat nga problemet e mëposhtme keni? (KUJDES! Rishikoni sëmundjen tuaj)</label>
+            </ul>
+            <!-- Editing -->
+            <div id="edit-healthIssues">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.SemundjeGjaku, new { @checked = Model.MedicalData.SemundjeGjaku })
+                            <label class="form-check-label" for="SemundjeGjaku">Sëmundje gjaku</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.TensionILarte, new { @checked = Model.MedicalData.TensionILarte })
+                            <label class="form-check-label" for="TensionILarte">Tension i lartë</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.TensionIUlet, new { @checked = Model.MedicalData.TensionIUlet })
+                            <label class="form-check-label" for="TensionIUlet">Tension i ulet</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.NderhyrjeKirugjikaleNeZemer, new { @checked = Model.MedicalData.NderhyrjeKirugjikaleNeZemer })
+                            <label class="form-check-label" for="NderhyrjeKirugjikaleNeZemer">Nderhyrje kirugjikale ne zemer</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.PropblemeZemre, new { @checked = Model.MedicalData.PropblemeZemre })
+                            <label class="form-check-label" for="PropblemeZemre">Probleme zemre</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.EtheRaumatizmale, new { @checked = Model.MedicalData.EtheRaumatizmale })
+                            <label class="form-check-label" for="EtheRaumatizmale">Probleme zemre</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.Glaucoma, new { @checked = Model.MedicalData.Glaucoma })
+                            <label class="form-check-label" for="Glaucoma">Glaucoma</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.Diabet, new { @checked = Model.MedicalData.Diabet })
+                            <label class="form-check-label" for="Diabet">Diabet</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.AlergjiNgaLlastikuDorezave, new { @checked = Model.MedicalData.AlergjiNgaLlastikuDorezave })
+                            <label class="form-check-label" for="AlergjiNgaLlastikuDorezave">Alergji nga llastiku dorezave</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.AlergjiNgaMedikamentet, new { @checked = Model.MedicalData.AlergjiNgaMedikamentet })
+                            <label class="form-check-label" for="AlergjiNgaMedikamentet">Alergji nga medikamentet</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.AlergjiNgaMetalet, new { @checked = Model.MedicalData.AlergjiNgaMetalet })
+                            <label class="form-check-label" for="AlergjiNgaMetalet">Alergji nga metalet</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.SemundjeMendore, new { @checked = Model.MedicalData.SemundjeMendore })
+                            <label class="form-check-label" for="SemundjeMendore">Semundje mendore</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.Epilepsi, new { @checked = Model.MedicalData.Epilepsi })
+                            <label class="form-check-label" for="Epilepsi">Epilepsi</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.PerdoruesDroge, new { @checked = Model.MedicalData.PerdoruesDroge })
+                            <label class="form-check-label" for="PerdoruesDroge">Perdorues droge</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.AzemBronkiale, new { @checked = Model.MedicalData.AzemBronkiale })
+                            <label class="form-check-label" for="AzemBronkiale">Azem bronkiale</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.Turbekuloze, new { @checked = Model.MedicalData.Turbekuloze })
+                            <label class="form-check-label" for="Turbekuloze">Turbekuloze</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.MjekimTumori, new { @checked = Model.MedicalData.MjekimTumori })
+                            <label class="form-check-label" for="MjekimTumori">MjekimTumori ose radioterapi</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.Shtatzen, new { @checked = Model.MedicalData.Shtatzen })
+                            <label class="form-check-label" for="Shtatzen">Shtatzen</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.AIDS, new { @checked = Model.MedicalData.AIDS })
+                            <label class="form-check-label" for="AIDS">AIDS</label>
+                        </div>
+
+                        <div class="form-check">
+                        @Html.CheckBoxFor(m => m.MedicalData.SemundjeMelcie, new { @checked = Model.MedicalData.SemundjeMelcie })
+                            <label class="form-check-label" for="SemundjeMelcie">Semundje melcie (Hepatit)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <!-- Reason for visiting -->
+        <div class="mb-3">
+            <label class="form-label">Cila është arsyeja që jeni paraqitur në klinikë?</label>
+            <!-- Viewing -->
+        <p id="view-reason" class="view-mode">@Model.MedicalData.ArsyejaEParaqitjesNeKlinike</p>
+            <!-- Editing -->
+        <textarea class="form-control" name="ArsyejaEParaqitjesNeKlinike" rows="2" placeholder="Shkruani arsyen">@Model.MedicalData.ArsyejaEParaqitjesNeKlinike</textarea>
+        </div>
+
+    <div class="section">
+        <h3>Trajtimet e Pacientit</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dhëmbi</th>
+                    <th>Diagnoza</th>
+                    <th>Trajtimi</th>
+                    <th>Data</th>
+                    <th>Pagesa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PatientTreatment is not null && Model.PatientTreatment.Any())
+                {
+                @foreach (var treatment in Model.PatientTreatment)
+                    {
+                        <tr>
+                            <td>@treatment.Tooth</td>
+                            <td>@treatment.Diagnosis</td>
+                            <td>@treatment.Treatment</td>
+                            <td>@treatment.DateOfIntervention</td>
+                            <td>@treatment.Payment</td>
+                        </tr>
+                    }
+                }
+                
+            </tbody>
+        </table>
+
+</div>

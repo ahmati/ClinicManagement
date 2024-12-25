@@ -4,14 +4,16 @@ using AspNetCoreHero.Boilerplate.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241225132425_fixes")]
+    partial class fixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,22 +250,22 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<bool>("AIDS")
+                    b.Property<bool?>("AIDS")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("AlergjiNgaLlastikuDorezave")
+                    b.Property<bool?>("AlergjiNgaLlastikuDorezave")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("AlergjiNgaMedikamentet")
+                    b.Property<bool?>("AlergjiNgaMedikamentet")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("AlergjiNgaMetalet")
+                    b.Property<bool?>("AlergjiNgaMetalet")
                         .HasColumnType("bit");
 
                     b.Property<string>("ArsyejaEParaqitjesNeKlinike")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("AzemBronkiale")
+                    b.Property<bool?>("AzemBronkiale")
                         .HasColumnType("bit");
 
                     b.Property<string>("CreatedBy")
@@ -272,22 +274,22 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Diabet")
+                    b.Property<bool?>("Diabet")
                         .HasColumnType("bit");
 
                     b.Property<string>("DoctorsName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Epilepsi")
+                    b.Property<bool?>("Epilepsi")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("EtheRaumatizmale")
+                    b.Property<bool?>("EtheRaumatizmale")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Glaucoma")
+                    b.Property<bool?>("Glaucoma")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("HasIllness")
+                    b.Property<bool?>("HasIllness")
                         .HasColumnType("bit");
 
                     b.Property<string>("IllnessDetails")
@@ -296,7 +298,7 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsUnderTreatment")
+                    b.Property<bool?>("IsUnderTreatment")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
@@ -308,37 +310,37 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<string>("MedicationsTreatment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("MjekimTumori")
+                    b.Property<bool?>("MjekimTumori")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("NderhyrjeKirugjikaleNeZemer")
+                    b.Property<bool?>("NderhyrjeKirugjikaleNeZemer")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("PerdoruesDroge")
+                    b.Property<bool?>("PerdoruesDroge")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("ProblemeZemre")
+                    b.Property<bool?>("ProblemeZemre")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("SemundjeGjaku")
+                    b.Property<bool?>("SemundjeGjaku")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("SemundjeMelcie")
+                    b.Property<bool?>("SemundjeMelcie")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("SemundjeMendore")
+                    b.Property<bool?>("SemundjeMendore")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Shtatzen")
+                    b.Property<bool?>("Shtatzen")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("TensionILarte")
+                    b.Property<bool?>("TensionILarte")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("TensionIUlet")
+                    b.Property<bool?>("TensionIUlet")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Turbekuloze")
+                    b.Property<bool?>("Turbekuloze")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");

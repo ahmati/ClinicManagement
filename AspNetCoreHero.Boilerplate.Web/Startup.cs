@@ -1,3 +1,4 @@
+using Application.Interfaces.Shared;
 using AspNetCoreHero.Boilerplate.Application.Extensions;
 using AspNetCoreHero.Boilerplate.Infrastructure.Extensions;
 using AspNetCoreHero.Boilerplate.Web.Abstractions;
@@ -7,6 +8,8 @@ using AspNetCoreHero.Boilerplate.Web.Services;
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
 using AutoMapper;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +21,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Web.Services;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace AspNetCoreHero.Boilerplate.Web
 {
@@ -57,6 +62,9 @@ namespace AspNetCoreHero.Boilerplate.Web
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IViewRenderService, ViewRenderService>();
+            services.AddScoped<IExportPdfService, ExportPdfService>();
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

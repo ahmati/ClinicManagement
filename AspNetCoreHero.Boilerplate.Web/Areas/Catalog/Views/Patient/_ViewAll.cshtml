@@ -50,6 +50,12 @@
                             Veprime
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
+                            @* <a onclick="jQueryModalGet('/catalog/patient/GeneratePatientData?id=@patient.Id','Shkarko Kartelen')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>  Shkarko kartelen</a> *@
+
+                            <form id="form_download_@patient.Id" asp-area="Catalog" asp-controller="Patient" method="post" asp-action="GeneratePatientData" asp-route-id="@patient.Id">
+                                <a href="javascript:$('#form_download_@patient.Id').submit();" class="dropdown-item">  <i class="fas fa-file-medical-alt"></i>  Shkarko
+                            </form>
+
                             @* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Edit)).Result.Succeeded)
                             { *@
                                 <a onclick="jQueryModalGet('/catalog/patient/OnGetCreateOrEdit?id=@patient.Id','Edit Patient')" class="dropdown-item"><i class="fas fa-pencil-alt"></i>  Edit</a>

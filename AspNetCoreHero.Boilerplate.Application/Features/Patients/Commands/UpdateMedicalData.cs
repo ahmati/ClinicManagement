@@ -19,34 +19,35 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
     public partial class UpdateMedicalDataCommand : IRequest<Result<int>> 
     { 
         public int Id { get; set; }
-        public bool? HasIllness { get; set; }
-        public string? IllnessDetails { get; set; }
-        public bool? IsUnderTreatment { get; set; }
-        public string? DoctorsName { get; set; }
-        public string? MedicationsTreatment { get; set; }
+        public bool HasIllness { get; set; } = false;
+        public string IllnessDetails { get; set; } = string.Empty;
+        public bool IsUnderTreatment { get; set; } = false;
+        public string DoctorsName { get; set; } = string.Empty;
+        public string MedicationsTreatment { get; set; } = string.Empty;
 
         // Liste e semundjeve te mundshme 
-        public bool? SemundjeGjaku { get; set; }
-        public bool? TensionILarte { get; set; }
-        public bool? TensionIUlet { get; set; }
-        public bool? NderhyrjeKirugjikaleNeZemer { get; set; }
-        public bool? PropblemeZemre { get; set; }
-        public bool? EtheRaumatizmale { get; set; }
-        public bool? Glaucoma { get; set; }
-        public bool? AlergjiNgaLlastikuDorezave { get; set; }
-        public bool? AlergjiNgaMedikamentet { get; set; }
-        public bool? AlergjiNgaMetalet { get; set; }
-        public bool? SemundjeMendore { get; set; }
-        public bool? Epilepsi { get; set; }
-        public bool? PerdoruesDroge { get; set; }
-        public bool? AzemBronkiale { get; set; }
-        public bool? Turbekuloze { get; set; }
-        public bool? MjekimTumori { get; set; }
-        public bool? Shtatzen { get; set; }
-        public bool? AIDS { get; set; }
-        public bool? SemundjeMelcie { get; set; }
+        public bool SemundjeGjaku { get; set; } = false;
+        public bool TensionILarte { get; set; } = false;
+        public bool TensionIUlet { get; set; } = false;
+        public bool NderhyrjeKirugjikaleNeZemer { get; set; } = false;
+        public bool ProblemeZemre { get; set; } = false;
+        public bool EtheRaumatizmale { get; set; } = false;
+        public bool Glaucoma { get; set; } = false;
+        public bool Diabet { get; set; } = false;
+        public bool AlergjiNgaLlastikuDorezave { get; set; } = false;
+        public bool AlergjiNgaMedikamentet { get; set; } = false;
+        public bool AlergjiNgaMetalet { get; set; } = false;
+        public bool SemundjeMendore { get; set; } = false;
+        public bool Epilepsi { get; set; } = false;
+        public bool PerdoruesDroge { get; set; } = false;
+        public bool AzemBronkiale { get; set; } = false;
+        public bool Turbekuloze { get; set; } = false;
+        public bool MjekimTumori { get; set; } = false;
+        public bool Shtatzen { get; set; } = false;
+        public bool AIDS { get; set; } = false;
+        public bool SemundjeMelcie { get; set; } = false;
 
-        public string? ArsyejaEParaqitjesNeKlinike { get; set; }
+        public string ArsyejaEParaqitjesNeKlinike { get; set; } = string.Empty;
     }
 
     public class UpdateMedicalDataCommandHandler : IRequestHandler<UpdateMedicalDataCommand, Result<int>>
@@ -82,7 +83,7 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
             medicalData.TensionILarte = request.TensionILarte;
             medicalData.TensionIUlet = request.TensionIUlet;
             medicalData.NderhyrjeKirugjikaleNeZemer = request.NderhyrjeKirugjikaleNeZemer;
-            medicalData.PropblemeZemre = request.PropblemeZemre;
+            medicalData.ProblemeZemre = request.ProblemeZemre;
             medicalData.EtheRaumatizmale = request.EtheRaumatizmale;
             medicalData.Glaucoma = request.Glaucoma;
             medicalData.AlergjiNgaLlastikuDorezave = request.AlergjiNgaLlastikuDorezave;

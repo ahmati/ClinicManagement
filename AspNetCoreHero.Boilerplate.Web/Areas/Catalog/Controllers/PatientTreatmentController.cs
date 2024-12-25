@@ -79,6 +79,7 @@ namespace Web.Areas.Catalog.Controllers
                     {
                         id = result.Data;
                         _notify.Success($"Trajtimi pacientit u ruajt me sukses.");
+
                     }
                     else _notify.Error(result.Message);
                 }
