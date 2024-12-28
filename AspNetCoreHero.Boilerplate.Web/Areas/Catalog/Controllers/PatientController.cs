@@ -31,12 +31,8 @@ namespace AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Controllers
         public async Task<IActionResult> LoadAll()
         {
             var response = await _mediator.Send(new GetAllPatientsQuery());
-            if (response.Succeeded)
-            {
-                var viewModel = _mapper.Map<List<PatientViewModel>>(response.Data);
-                return PartialView("_ViewAll", viewModel);
-            }
-            return null;
+            var viewModel = _mapper.Map<List<PatientViewModel>>(response);
+            return PartialView("_ViewAll", viewModel);
         }
 
         [Authorize(Policy = Permissions.Users.View)]
@@ -88,15 +84,15 @@ namespace AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Controllers
                     await _mediator.Send(new UpdatePatientImageCommand() { Id = id, Image = image });
                 }
                 var response = await _mediator.Send(new GetAllPatientsQuery());
-                if (response.Succeeded)
+                if (response is not null && response.Any())
                 {
-                    var viewModel = _mapper.Map<List<PatientViewModel>>(response.Data);
+                    var viewModel = _mapper.Map<List<PatientViewModel>>(response);
                     var html = await _viewRenderer.RenderViewToStringAsync("_ViewAll", viewModel);
                     return new JsonResult(new { isValid = true, html = html });
                 }
                 else
                 {
-                    _notify.Error(response.Message);
+                    _notify.Error("Ka nje problem me sistemin");
                     return null;
                 }
             }
@@ -125,7 +121,7 @@ namespace AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Controllers
                 _notify.Information($"Pacienti {deletedPatient.Name} {deletedPatient.Surname} u fshi.");
                 
                 var response = await _mediator.Send(new GetAllPatientsQuery());
-                var viewModel = _mapper.Map<List<PatientViewModel>>(response.Data);
+                var viewModel = _mapper.Map<List<PatientViewModel>>(response);
                 var html = await _viewRenderer.RenderViewToStringAsync("_ViewAll", viewModel);
                 return new JsonResult(new { isValid = true, html = html });
                 

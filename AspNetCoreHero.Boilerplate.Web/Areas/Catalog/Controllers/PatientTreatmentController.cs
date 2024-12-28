@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using AspNetCoreHero.Boilerplate.Web.Abstractions;
 using Web.Areas.Catalog.Models;
 using Application.Features.PatientsTreatmentHistory.Queries;
+using System.Linq;
 
 namespace Web.Areas.Catalog.Controllers
 {
@@ -32,12 +33,8 @@ namespace Web.Areas.Catalog.Controllers
         public async Task<IActionResult> LoadAll(int patientId)
         {
             var response = await _mediator.Send(new GetPatientTreatmentsQuery { PatientId = patientId});
-            if (response.Succeeded)
-            {
-                var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response.Data);
-                return PartialView("_ViewAll", viewModel);
-            }
-            return null;
+            var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response);
+            return PartialView("_ViewAll", viewModel);
         }
 
         [Authorize(Policy = Permissions.Users.View)]
@@ -93,15 +90,15 @@ namespace Web.Areas.Catalog.Controllers
                 }
                 
                 var response = await _mediator.Send(new GetPatientTreatmentsQuery { PatientId = patientTreatment.PatientId});
-                if (response.Succeeded)
+                if (response is not null && response.Any())
                 {
-                    var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response.Data);
+                    var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response);
                     var html = await _viewRenderer.RenderViewToStringAsync("_ViewAll", viewModel);
                     return new JsonResult(new { isValid = true, html = html });
                 }
                 else
                 {
-                    _notify.Error(response.Message);
+                    _notify.Error("Error");
                     return null;
                 }
             }
@@ -122,7 +119,7 @@ namespace Web.Areas.Catalog.Controllers
                 _notify.Information($"Fshirja u krye me suskes.");
 
                 var response = await _mediator.Send(new GetPatientTreatmentsQuery());
-                var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response.Data);
+                var viewModel = _mapper.Map<List<PatientTreatmentViewModel>>(response);
                 var html = await _viewRenderer.RenderViewToStringAsync("_ViewAll", viewModel);
                 return new JsonResult(new { isValid = true, html = html });
 

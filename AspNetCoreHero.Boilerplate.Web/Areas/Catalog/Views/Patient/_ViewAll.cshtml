@@ -32,13 +32,13 @@
             <td>
                     <a asp-area="Catalog" asp-controller="MedicalData"  asp-action="Index" asp-route-id="@patient.MedicalDataId" class="btn btn-default">
                         @* <a href="/Catalog/PatientTreatment/Index/@patient.Id" class="btn btn-default"> *@
-                        Shiko
+                        Ndrysho te dhenat mjeksore
                     </a>
             </td>
             <td>
                     <a asp-area="Catalog" asp-controller="PatientTreatment"  asp-action="Index" asp-route-id="@patient.Id" class="btn btn-default">
                         @* <a href="/Catalog/PatientTreatment/Index/@patient.Id" class="btn btn-default"> *@
-                        Shiko trajtimet e pacientit
+                        Shto trajtimet 
                     </a>
             </td>
             @*     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Patients.Delete)).Result.Succeeded

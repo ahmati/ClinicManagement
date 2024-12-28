@@ -41,9 +41,11 @@ namespace Web.Areas.Catalog.Controllers
                     medicalData.Id = id;    
                     var updateProductCommand = _mapper.Map<UpdateMedicalDataCommand>(medicalData);
                     var result = await _mediator.Send(updateProductCommand);
-                    if (result.Succeeded) _notify.Information($"Pacienti me ID {result.Data} u perditesua me sukses.");
+                    if (result.Succeeded) _notify.Information($"Pacienti u perditesua me sukses.");
+
+
                 }
-                
+
                 var response = await _mediator.Send(new GetPatientMedicalDataQuery() { Id = id });
                 if (response.Succeeded)
                 {

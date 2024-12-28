@@ -6,6 +6,7 @@ using AspNetCoreHero.Results;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreHero.Boilerplate.Application.Features
 {
-    public class GetPatientTreatmentsQuery : IRequest<PaginatedResult<PatientTreatment>>
+    public class GetPatientTreatmentsQuery : IRequest<List<PatientTreatment>>
     {
         public int PatientId { get; set; }
         public int PageNumber { get; set; }
@@ -21,7 +22,7 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
 
     }
 
-    public class GetPatientTreatmentsQueryHandler : IRequestHandler<GetPatientTreatmentsQuery, PaginatedResult<PatientTreatment>>
+    public class GetPatientTreatmentsQueryHandler : IRequestHandler<GetPatientTreatmentsQuery, List<PatientTreatment>>
     {
         private readonly IRepositoryAsync<Patient> _repository;
 
@@ -36,12 +37,12 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
             _mapper = mapper;
         }
 
-        public async Task<PaginatedResult<PatientTreatment>> Handle(GetPatientTreatmentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<PatientTreatment>> Handle(GetPatientTreatmentsQuery request, CancellationToken cancellationToken)
         {
             var patients = await _context.EntitySet<PatientTreatment>()
                                          .Include(x => x.Patient)
                                          .Where(x => x.PatientId == request.PatientId)
-                                         .ToPaginatedListAsync(request.PageNumber, request.PageSize);
+                                         .ToListAsync();
 
             return patients;
         }
