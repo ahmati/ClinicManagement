@@ -18,6 +18,7 @@ using System.Linq;
 using AspNetCoreHero.Boilerplate.Application.Features.Products.Commands.Update;
 using AspNetCoreHero.Boilerplate.Web.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Web.Services;
 
 namespace Web.Areas.Catalog.Controllers
 {
@@ -151,6 +152,15 @@ namespace Web.Areas.Catalog.Controllers
                 _notify.Error(result.Message);
                 return null;
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadImage(int id) 
+        {
+            var result = await _mediator.Send(new GetPatientTreatmentByIdQuery { Id = id });
+
+            return File(result.Data.Picture, "image/png",
+                $"{result.Data.Patient.Name}/ {result.Data.Treatment ?? string.Empty}.png");
         }
     }
 

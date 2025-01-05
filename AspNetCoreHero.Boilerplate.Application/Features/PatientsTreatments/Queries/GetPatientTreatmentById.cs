@@ -28,6 +28,7 @@ namespace Application.Features.PatientsTreatmentHistory.Queries
             public async Task<Result<PatientTreatment>> Handle(GetPatientTreatmentByIdQuery query, CancellationToken cancellationToken)
             {
                 PatientTreatment patientTreatment = await _context.EntitySet<PatientTreatment>()
+                                         .Include(x => x.Patient)
                                          .Where(x => x.Id == query.Id)
                                          .FirstOrDefaultAsync();
 
