@@ -4,14 +4,16 @@ using AspNetCoreHero.Boilerplate.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229212000_add_staff3")]
+    partial class add_staff3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,9 +197,6 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<byte[]>("Picture")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("StaffUserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Tooth")
                         .HasColumnType("int");
 
@@ -207,8 +206,6 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("StaffUserId");
 
                     b.ToTable("PatientTreatment");
                 });
@@ -424,21 +421,10 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.StaffUser", "StaffUser")
-                        .WithMany("PatientTreatments")
-                        .HasForeignKey("StaffUserId");
-
                     b.Navigation("Patient");
-
-                    b.Navigation("StaffUser");
                 });
 
             modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.Patient", b =>
-                {
-                    b.Navigation("PatientTreatments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.StaffUser", b =>
                 {
                     b.Navigation("PatientTreatments");
                 });

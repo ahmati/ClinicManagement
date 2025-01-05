@@ -41,6 +41,7 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
         {
             var patients = await _context.EntitySet<PatientTreatment>()
                                          .Include(x => x.Patient)
+                                         .Include(x => x.StaffUser)
                                          .Where(x => x.PatientId == request.PatientId)
                                          .ToListAsync();
 

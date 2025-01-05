@@ -21,7 +21,7 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
         public string Treatment { get; set; }
         public DateTime DateOfIntervention { get; set; }
         public string Payment { get; set; }
-
+        public int StaffUserId { get; set; }  
         public int PatientId { get; set; }
     }
 

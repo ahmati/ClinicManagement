@@ -5,6 +5,7 @@ using AspNetCoreHero.Boilerplate.Domain.Common;
 using AspNetCoreHero.Boilerplate.Domain.Entities;
 using AspNetCoreHero.Boilerplate.Domain.Entities.Catalog;
 using AspNetCoreHero.EntityFrameworkCore.AuditTrail;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -34,6 +35,7 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.DbContexts
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Patient> Patient { get; set; }
+        public DbSet<StaffUser> StaffUser { get; set; }
 
         public IDbConnection Connection => Database.GetDbConnection();
 

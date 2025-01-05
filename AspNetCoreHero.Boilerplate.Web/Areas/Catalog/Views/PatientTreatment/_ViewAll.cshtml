@@ -7,6 +7,7 @@
             <th>Diagnoza</th>
             <th>Trajtimi</th>
             <th>Data e trajtimit</th>
+            <th>Mjeku</th>
             <th>Pagesa</th>
             @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Delete)).Result.Succeeded
                || (AuthorizationService.AuthorizeAsync(User, Permissions.Products.Edit)).Result.Succeeded)
@@ -30,6 +31,9 @@
             </td>
             <td>
                     @treatment.DateOfIntervention
+            </td>
+            <td>
+                    @treatment.UserStaffName
             </td>
             <td>
                     @treatment.Payment

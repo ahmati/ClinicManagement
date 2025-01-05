@@ -20,6 +20,7 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
         public string Treatment { get; set; }
         public DateTime DateOfIntervention { get; set; }
         public string Payment { get; set; }
+        public int StaffUserId { get; set; }
 
         public class UpdatePatientTreatmentCommandHandler : IRequestHandler<UpdatePatientTreatmentCommand, Result<int>>
         {
@@ -52,6 +53,11 @@ namespace AspNetCoreHero.Boilerplate.Application.Features
                     treatment.Diagnosis = command.Diagnosis;
                     treatment.Treatment = command.Treatment;
                     treatment.Payment = command.Payment;
+
+                    if (command.StaffUserId > 0)
+                    {
+                        treatment.StaffUserId = command.StaffUserId;
+                    }
 
                     await _context.UpdateAsync(treatment);
 

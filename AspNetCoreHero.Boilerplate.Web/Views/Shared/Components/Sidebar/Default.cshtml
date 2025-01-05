@@ -47,7 +47,7 @@
                     </li>
                 }
 
-                <li class="nav-header">@localizer["Master"]</li>
+               @*  <li class="nav-header">@localizer["Master"]</li>
                 <li is-active-route asp-area="Utilities" class="nav-item has-treeview">
                     <a is-active-route asp-area="Utilities" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -64,7 +64,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> *@
                 @* <li is-active-route asp-area="Catalog" class="nav-item has-treeview">
                     <a is-active-route asp-area="Catalog" class="nav-link">
                         <i class="nav-icon fas fa-archive"></i>
@@ -90,7 +90,7 @@
                 </li> *@
                 <li is-active-route asp-area="Catalog" class="nav-item has-treeview">
                     <a is-active-route asp-area="Catalog" class="nav-link">
-                        <i class="nav-icon fas fa-archive"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             Patient
                             <i class="right fas fa-angle-left"></i>
@@ -104,6 +104,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a is-active-route asp-area="Catalog" asp-controller="Staff" class="nav-link">
+                        <i class="nav-icon fas fa-people-arrows"></i>
+                        <p>Staff</p> 
+                    </a>
                 </li>
             </ul>
         </nav>

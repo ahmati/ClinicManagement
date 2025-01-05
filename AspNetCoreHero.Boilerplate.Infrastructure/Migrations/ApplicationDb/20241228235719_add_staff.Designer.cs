@@ -4,14 +4,16 @@ using AspNetCoreHero.Boilerplate.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241228235719_add_staff")]
+    partial class add_staff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,9 +197,6 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<byte[]>("Picture")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("StaffUserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Tooth")
                         .HasColumnType("int");
 
@@ -207,8 +206,6 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("StaffUserId");
 
                     b.ToTable("PatientTreatment");
                 });
@@ -354,48 +351,6 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.ToTable("MedicalData");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StaffUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("BornDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StaffUser");
-                });
-
             modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.Catalog.Product", b =>
                 {
                     b.HasOne("AspNetCoreHero.Boilerplate.Domain.Entities.Catalog.Brand", "Brand")
@@ -424,21 +379,10 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.StaffUser", "StaffUser")
-                        .WithMany("PatientTreatments")
-                        .HasForeignKey("StaffUserId");
-
                     b.Navigation("Patient");
-
-                    b.Navigation("StaffUser");
                 });
 
             modelBuilder.Entity("AspNetCoreHero.Boilerplate.Domain.Entities.Patient", b =>
-                {
-                    b.Navigation("PatientTreatments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.StaffUser", b =>
                 {
                     b.Navigation("PatientTreatments");
                 });

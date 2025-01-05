@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Stafi";
+    ViewData["Caption"] = localizer["Menaxhimi i stafit"];
+}
+@using Web.Areas.Catalog.Models
+@model StaffUserViewModel
+<div class="card">
+    <div class="col-sm-12" style="padding:20px">
+        @* @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Products.Create)).Result.Succeeded)
+        { *@
+            <a onclick="jQueryModalGet('/catalog/staff/OnGetCreateOrEdit','Krijo staff')" class="btn bg-success">
+            <i class="fa fa-plus-square"></i> Shto staf
+            </a>
+        @* } *@
+    </div>
+    <div id="viewAll" class="card-body table-responsive">
+    </div>
+</div>
+<style>
+    .modal{
+        background-color:none;
+    }
+</style>
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#staffTable").DataTable();
+            loadData();
+            $('#reload').on('click', function () {
+                loadData();
+            });
+        });
+        function loadData() {
+            $('#viewAll').load('/catalog/staff/LoadAll');
+        }
+    </script>
+}

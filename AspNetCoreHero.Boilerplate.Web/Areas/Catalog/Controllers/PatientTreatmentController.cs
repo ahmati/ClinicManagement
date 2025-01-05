@@ -15,6 +15,9 @@ using AspNetCoreHero.Boilerplate.Web.Abstractions;
 using Web.Areas.Catalog.Models;
 using Application.Features.PatientsTreatmentHistory.Queries;
 using System.Linq;
+using AspNetCoreHero.Boilerplate.Application.Features.Products.Commands.Update;
+using AspNetCoreHero.Boilerplate.Web.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Web.Areas.Catalog.Controllers
 {
@@ -40,13 +43,21 @@ namespace Web.Areas.Catalog.Controllers
         [Authorize(Policy = Permissions.Users.View)]
         public async Task<JsonResult> OnGetCreateOrEdit(int patientId, int id = 0)
         {
+            var staffUsers = await _mediator.Send(new GetAllStaffUsersQuery());
 
+            
             if (id == 0)
             {
                 var patientViewModel = new PatientTreatmentViewModel() 
                 {
                     PatientId = patientId
                 };
+
+                if (staffUsers is not null)
+                {
+                    var staffUserViewModels = _mapper.Map<List<StaffUserViewModel>>(staffUsers);
+                    patientViewModel.StaffUsers = new SelectList(staffUserViewModels, nameof(StaffUserViewModel.Id), nameof(StaffUserViewModel.FullName), null, null);
+                }
                 return new JsonResult(new { isValid = true, html = await _viewRenderer.RenderViewToStringAsync("_CreateOrEdit", patientViewModel) });
             }
             else
@@ -55,6 +66,12 @@ namespace Web.Areas.Catalog.Controllers
                 if (response.Succeeded)
                 {
                     var patientViewModel = _mapper.Map<PatientTreatmentViewModel>(response.Data);
+
+                    if (staffUsers is not null)
+                    {
+                        var staffUserViewModels = _mapper.Map<List<StaffUserViewModel>>(staffUsers);
+                        patientViewModel.StaffUsers = new SelectList(staffUserViewModels, nameof(StaffUserViewModel.Id), nameof(StaffUserViewModel.FullName), null, null);
+                    }
                     return new JsonResult(new { isValid = true, html = await _viewRenderer.RenderViewToStringAsync("_CreateOrEdit", patientViewModel) });
                 }
                 return null;
@@ -88,7 +105,12 @@ namespace Web.Areas.Catalog.Controllers
                     var result = await _mediator.Send(updatePatientTreatment); 
                     if (result.Succeeded) _notify.Information($"Pacienti me ID {result.Data} u perditesua me sukses.");
                 }
-                
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
+                    var image = file.OptimizeImageSize(700, 700);
+                    await _mediator.Send(new UpdateTreatmentPictureCommand() { Id = id, Image = image });
+                }
                 var response = await _mediator.Send(new GetPatientTreatmentsQuery { PatientId = patientTreatment.PatientId});
                 if (response is not null && response.Any())
                 {

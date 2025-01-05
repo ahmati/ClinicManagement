@@ -1,0 +1,56 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using AspNetCoreHero.Boilerplate.Web.Areas.Catalog.Models
+@using Web.Areas.Catalog.Models
+@model StaffUserViewModel
+<form id="create-form" method="post" asp-controller="Staff" asp-action="OnPostCreateOrEdit" asp-route-id="@Model.Id" onsubmit="return jQueryModalPost(this);" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Emri</label>
+                <div class="col-md-9">
+                    <input type="text" asp-for="Name" name="Name" class="form-control">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Mbiemri</label>
+                <div class="col-md-9">
+                    <input type="text" as asp-for="Surname" name="Surname" class="form-control">
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Data e lindjes</label>
+                <div class="col-md-9">
+                    <input type="date" as asp-for="BornDate" name="BornDate" class="form-control" />
+                    <span asp-validation-for="BornDate" class="text-danger"></span>
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Phone Number</label>
+                <div class="col-md-9">
+                    <input type="number" asp-for="PhoneNo" name="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label">Roli</label>
+                <div class="col-md-9">
+                    <input type="text" asp-for="Role" name="Role" class="form-control" />
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="d-flex form-group justify-content-end" style="margin-bottom: 0px !important">
+        <button type="submit" class="d-flex btn btn-success m-2">Save</button>
+        <button type="submit" class="btn btn-default close-button m-2" data-dismiss="modal">Cancel</button>
+    </div>
+</form>
+
+<script type="text/javascript" language=javascript>
+    
+</script>

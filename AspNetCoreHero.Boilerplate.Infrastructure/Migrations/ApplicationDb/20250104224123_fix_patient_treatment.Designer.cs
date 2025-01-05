@@ -4,14 +4,16 @@ using AspNetCoreHero.Boilerplate.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250104224123_fix_patient_treatment")]
+    partial class fix_patient_treatment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,7 +197,7 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
                     b.Property<byte[]>("Picture")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int?>("StaffUserId")
+                    b.Property<int>("StaffUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("Tooth")
@@ -426,7 +428,9 @@ namespace AspNetCoreHero.Boilerplate.Infrastructure.Migrations.ApplicationDb
 
                     b.HasOne("Domain.Entities.StaffUser", "StaffUser")
                         .WithMany("PatientTreatments")
-                        .HasForeignKey("StaffUserId");
+                        .HasForeignKey("StaffUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Patient");
 
